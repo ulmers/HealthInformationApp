@@ -1,0 +1,23 @@
+.mat-card {
+  position: fixed;
+  width: 20%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tab-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 10px;
+}
+
+.tab-contents > mat-form-field {
+  flex-grow: 1;
+  width: 100%;
+}
+
+mat-card-actions {
+  display: flex;
+}

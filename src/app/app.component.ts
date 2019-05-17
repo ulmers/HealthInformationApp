@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'HealthInformationApp';
+
+  loginRegisterSelection = '';
+
+  getLoginRegisterSelection(): string {
+    return this.loginRegisterSelection || '';
+  }
+
+  setLoginRegisterSelection(clicked: string) {
+    this.loginRegisterSelection = clicked;
+  }
 }

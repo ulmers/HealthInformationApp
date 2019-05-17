@@ -1,0 +1,37 @@
+<mat-card [ngStyle]="{'display': getDisplay()}">
+  <mat-card-content>
+    <mat-tab-group [selectedIndex]="getIndex()" [headerPosition]="getIndex()">
+      <mat-tab label="Login">
+        <div class="tab-contents">
+          <mat-form-field>
+            <input matInput placeholder="Email Address or Username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password">
+          </mat-form-field>
+        </div>
+      </mat-tab>
+      <mat-tab label="Register">
+        <div class="tab-contents">
+          <mat-form-field>
+            <input matInput placeholder="Email Address">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Confirm Password">
+          </mat-form-field>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary">SUBMIT</button>
+  </mat-card-actions>
+</mat-card>
