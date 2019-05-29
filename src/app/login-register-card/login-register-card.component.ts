@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginRegisterSelectionService} from '../login-register-selection.service';
+import {PatientService} from '../patient.service';
 
 @Component({
   selector: 'app-login-register-card',
@@ -8,26 +9,49 @@ import {LoginRegisterSelectionService} from '../login-register-selection.service
 })
 export class LoginRegisterCardComponent implements OnInit {
 
-  constructor(private loginRegisterSelectionService: LoginRegisterSelectionService) { }
+  email = '';
+
+  password = '';
+
+  confirmPassword = '';
+
+  constructor(private loginRegisterSelectionService: LoginRegisterSelectionService, private patientService: PatientService) { }
 
   ngOnInit() {
   }
 
+  getSelection(): string {
+    return this.loginRegisterSelectionService.getSelection();
+  }
+
   getDisplay() {
-    if (this.loginRegisterSelectionService.getSelection() === '') {
+    if (this.getSelection() === '') {
       return 'none';
     }
     return 'inline-block';
   }
 
   getIndex(): number {
-    if (this.loginRegisterSelectionService.getSelection() === 'Register') {
-      return 1;
-    }
-    if (this.loginRegisterSelectionService.getSelection() === 'Login') {
+    if (this.getSelection() === 'Login') {
       return 0;
     }
+    if (this.getSelection() === 'Register') {
+      return 1;
+    }
     return null;
+  }
+
+  onClickLoginRegister() {
+    if (this.getSelection() === 'Login') {
+
+    }
+    if (this.getSelection() === 'Register') {
+      this.patientService.postPatient(this.email, this.password, this.confirmPassword).subscribe( resp => {
+        console.log(resp);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   cancel() {

@@ -14,16 +14,13 @@
       <mat-tab label="Register">
         <div class="tab-contents">
           <mat-form-field>
-            <input matInput placeholder="Email Address">
+            <input matInput placeholder="Email Address" [(ngModel)]="email">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Username">
+            <input matInput placeholder="Password" [(ngModel)]="password">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Password">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Confirm Password">
+            <input matInput placeholder="Confirm Password" [(ngModel)]="confirmPassword">
           </mat-form-field>
         </div>
       </mat-tab>
@@ -32,6 +29,6 @@
   <mat-card-actions>
     <button mat-button (click)="cancel()">Cancel</button>
     <span class="spacer"></span>
-    <button mat-raised-button color="primary">SUBMIT</button>
+    <button mat-raised-button color="primary" (click)="onClickLoginRegister()">{{getSelection()}}</button>
   </mat-card-actions>
 </mat-card>
