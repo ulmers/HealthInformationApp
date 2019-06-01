@@ -3,13 +3,7 @@ import {AuthenticateService} from './authenticate.service';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'observe': 'response',
-    'Content-Type':  'application/json'
-  })
-};
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +24,7 @@ export class PatientService {
 
     console.log('request being made');
 
-    return this.http.post<boolean>('http://localhost:3000/patient', body, {observe: 'response'}).pipe(catchError(this.handleError));
+    return this.http.post<boolean>(environment.apiDomain + '/patient', body, {observe: 'response'}).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
