@@ -1,6 +1,7 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="mat-elevation-z8" color="primary">
   <span class="title">IronPidginApp</span>
   <span class="spacer"></span>
-  <button mat-button (click)="setSelection('Login')">Login</button>
-  <button mat-button (click)="setSelection('Register')">Register</button>
+  <button mat-button (click)="setSelection('Login')" *ngIf="!isLoggedIn">Login</button>
+  <button mat-button (click)="setSelection('Register')" *ngIf="!isLoggedIn">Register</button>
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn">Logout</button>
 </mat-toolbar>

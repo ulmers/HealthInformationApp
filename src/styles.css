@@ -8,3 +8,8 @@
 .mat-tab-label {
   flex-grow: 1;
 }
+
+body {
+  margin: 0;
+  background-color: #e0e0e0;
+}

@@ -1,30 +1,26 @@
 import { Injectable } from '@angular/core';
-import {AuthenticateService} from './authenticate.service';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
-import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PatientService {
+export class AuthenticateService {
 
-  constructor(private authenticateService: AuthenticateService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  postPatient(email: string, password: string, confirmPassword: string): Observable<HttpResponse<boolean>> {
+  authenticate(email: string, password: string): Observable<HttpResponse<string>> {
 
-    console.log('Creating user with: { email: ' + email + ', password: ' + password + ', confirmPassword: ' + confirmPassword);
+    console.log('Getting token with: { email: ' + email + ', password: ' + password + ' }');
 
     const body =  {
       email: email,
-      password: password,
-      confirmPassword: confirmPassword
+      password: password
     };
 
-    console.log('request being made');
-
-    return this.http.post<boolean>(environment.apiDomain + '/patient', body, {observe: 'response'}).pipe(catchError(this.handleError));
+    return this.http.post<string>(environment.apiDomain + '/authenticate', body, { observe: 'response'}).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

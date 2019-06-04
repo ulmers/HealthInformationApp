@@ -4,5 +4,7 @@
 
 export const environment = {
   production: false,
-  apiDomain: 'http://localhost:3000'
+  apiDomain: 'http://localhost:3000',
+  enableTracing: true,
+  minutesToTokenExpiration: 15
 };

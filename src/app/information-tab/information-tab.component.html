@@ -1,0 +1,52 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Basic Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="expansion-panel-body">
+      <mat-form-field>
+        <input matInput placeholder="First Name" [value]="patient.firstName || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Last Name" [value]="patient.lastName || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Email Address" [value]="patient.email || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Birthdate" [value]="patient.birthdate || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Last Four Numbers of Social Security Number" [value]="patient.lastFourOfSocial || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Address Line 1" [value]="patient.address1 || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Address Line 2" [value]="patient.address2 || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="City" [value]="patient.city || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="State" [value]="patient.state || ''">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Zip Code" [value]="patient.zipCode || ''">
+      </mat-form-field>
+
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

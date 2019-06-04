@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginRegisterSelectionService} from '../login-register-selection.service';
-import {PatientService} from '../patient.service';
+import { Component, OnInit } from '@angular/core';
+import { LoginRegisterSelectionService } from '../services/login-register-selection.service';
+import { Router, ActivatedRoute} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { PatientService } from '../services/patient.service';
+import {AuthenticateService} from '../services/authenticate.service';
 
 @Component({
   selector: 'app-login-register-card',
@@ -15,20 +18,25 @@ export class LoginRegisterCardComponent implements OnInit {
 
   confirmPassword = '';
 
-  constructor(private loginRegisterSelectionService: LoginRegisterSelectionService, private patientService: PatientService) { }
+  constructor(
+    private loginRegisterSelectionService: LoginRegisterSelectionService,
+    private cookieService: CookieService,
+    private patientService: PatientService,
+    private authenticateService: AuthenticateService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   getSelection(): string {
     return this.loginRegisterSelectionService.getSelection();
   }
 
-  getDisplay() {
+  isVisible() {
     if (this.getSelection() === '') {
-      return 'none';
+      return false;
     }
-    return 'inline-block';
+    return true;
   }
 
   getIndex(): number {
@@ -43,11 +51,21 @@ export class LoginRegisterCardComponent implements OnInit {
 
   onClickLoginRegister() {
     if (this.getSelection() === 'Login') {
-
+      this.authenticateService.authenticate(this.email, this.password).subscribe(resp => {
+        console.log(resp);
+        this.cookieService.set('token', resp.body['token']);
+        this.patientService.checkIsLoggedIn();
+        this.router.navigate(['/dashboard']);
+      });
     }
     if (this.getSelection() === 'Register') {
       this.patientService.postPatient(this.email, this.password, this.confirmPassword).subscribe( resp => {
         console.log(resp);
+        this.cookieService.set('token', resp.body['token']);
+        this.loginRegisterSelectionService.setSelection('');
+        this.patientService.checkIsLoggedIn();
+        this.router.navigate(['/dashboard']);
+
       }, error => {
         console.log(error);
       });

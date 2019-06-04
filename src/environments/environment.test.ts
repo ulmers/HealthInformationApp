@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiDomain: ''
+  apiDomain: '',
+  enableTracing: true
 };

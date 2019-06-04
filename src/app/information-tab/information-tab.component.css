@@ -1,0 +1,22 @@
+mat-accordion {
+  margin: 10px;
+}
+
+mat-expansion-panel {
+  max-width: 6in;
+  min-width: 3in;
+  width: 50%;
+
+  margin: 20px auto;
+}
+
+.expansion-panel-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.expansion-panel-body > mat-form-field {
+  flex-grow: 1;
+  width: 80%;
+  margin: 0 auto;
+}

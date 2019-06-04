@@ -32,9 +32,10 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "express": "^4.17.0",
+    "ngx-cookie-service": "^2.2.0",
     "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26",
-    "typescript": "~2.9.2"
+    "typescript": "~2.9.2",
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",

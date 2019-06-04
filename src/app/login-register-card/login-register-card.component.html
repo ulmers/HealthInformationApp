@@ -1,4 +1,4 @@
-<mat-card [ngStyle]="{'display': getDisplay()}">
+<mat-card *ngIf="isVisible()">
   <mat-card-content>
     <mat-tab-group [selectedIndex]="getIndex()" [headerPosition]="getIndex()">
       <mat-tab label="Login">
