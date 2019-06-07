@@ -1,6 +1,6 @@
-<mat-card *ngIf="isVisible()">
+<mat-card *ngIf="selection !== ''">
   <mat-card-content>
-    <mat-tab-group [selectedIndex]="getIndex()" [headerPosition]="getIndex()">
+    <mat-tab-group [selectedIndex]="selectionIndex" (selectedIndexChange)="setSelectionWithIndex($event)">
       <mat-tab label="Login">
         <div class="tab-contents">
           <mat-form-field>
@@ -29,6 +29,6 @@
   <mat-card-actions>
     <button mat-button (click)="cancel()">Cancel</button>
     <span class="spacer"></span>
-    <button mat-raised-button color="primary" (click)="onClickLoginRegister()">{{getSelection()}}</button>
+    <button mat-raised-button color="primary" (click)="onClickLoginRegister()">{{selection}}</button>
   </mat-card-actions>
 </mat-card>

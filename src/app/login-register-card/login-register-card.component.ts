@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { LoginRegisterSelectionService } from '../services/login-register-selection.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { PatientService } from '../services/patient.service';
 import {AuthenticateService} from '../services/authenticate.service';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-login-register-card',
   templateUrl: './login-register-card.component.html',
   styleUrls: ['./login-register-card.component.css']
 })
-export class LoginRegisterCardComponent implements OnInit {
+export class LoginRegisterCardComponent implements OnInit, OnDestroy {
+
+  private unsubscribe$ = new Subject<void>();
+
+  selection: string;
+  selectionIndex: number;
 
   email = '';
-
   password = '';
-
   confirmPassword = '';
 
   constructor(
@@ -26,39 +32,51 @@ export class LoginRegisterCardComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loginRegisterSelectionService.selectionObserver.pipe(takeUntil(this.unsubscribe$)).subscribe(
+      selection => {
+        this.selection = selection;
 
-  getSelection(): string {
-    return this.loginRegisterSelectionService.getSelection();
+        if (selection === 'Login') {
+          this.selectionIndex = 0;
+        } else if (selection === 'Register') {
+          this.selectionIndex = 1;
+        } else {
+          this.selectionIndex = null;
+        }
+      });
   }
 
-  isVisible() {
-    if (this.getSelection() === '') {
-      return false;
-    }
-    return true;
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
-  getIndex(): number {
-    if (this.getSelection() === 'Login') {
-      return 0;
+  setSelection(selection: string) {
+    this.loginRegisterSelectionService.setSelection(selection);
+  }
+
+  setSelectionWithIndex(index: number) {
+    if (index === 0) {
+      this.setSelection('Login');
+    } else if (index === 1) {
+      this.setSelection('Register');
+    } else {
+      this.setSelection('');
     }
-    if (this.getSelection() === 'Register') {
-      return 1;
-    }
-    return null;
   }
 
   onClickLoginRegister() {
-    if (this.getSelection() === 'Login') {
+    if (this.selection === 'Login') {
       this.authenticateService.authenticate(this.email, this.password).subscribe(resp => {
         console.log(resp);
         this.cookieService.set('token', resp.body['token']);
+        this.loginRegisterSelectionService.setSelection('');
         this.patientService.checkIsLoggedIn();
         this.router.navigate(['/dashboard']);
       });
     }
-    if (this.getSelection() === 'Register') {
+    if (this.selection === 'Register') {
       this.patientService.postPatient(this.email, this.password, this.confirmPassword).subscribe( resp => {
         console.log(resp);
         this.cookieService.set('token', resp.body['token']);
