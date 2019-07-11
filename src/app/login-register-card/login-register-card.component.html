@@ -4,10 +4,10 @@
       <mat-tab label="Login">
         <div class="tab-contents">
           <mat-form-field>
-            <input matInput placeholder="Email Address or Username">
+            <input matInput placeholder="Email Address" [(ngModel)]="email">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Password">
+            <input matInput placeholder="Password" [(ngModel)]="password">
           </mat-form-field>
         </div>
       </mat-tab>

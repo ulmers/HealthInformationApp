@@ -73,7 +73,11 @@ export class LoginRegisterCardComponent implements OnInit, OnDestroy {
         this.cookieService.set('token', resp.body['token']);
         this.loginRegisterSelectionService.setSelection('');
         this.patientService.checkIsLoggedIn();
-        this.router.navigate(['/dashboard']);
+        if (resp.body['userType'] === 'patient') {
+          this.router.navigate(['/patient-dashboard']);
+        } else if (resp.body['userType'] === 'provider') {
+          this.router.navigate(['/provider-dashboard']);
+        }
       });
     }
     if (this.selection === 'Register') {
@@ -82,7 +86,7 @@ export class LoginRegisterCardComponent implements OnInit, OnDestroy {
         this.cookieService.set('token', resp.body['token']);
         this.loginRegisterSelectionService.setSelection('');
         this.patientService.checkIsLoggedIn();
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/patient-dashboard']);
 
       }, error => {
         console.log(error);

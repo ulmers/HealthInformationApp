@@ -4,11 +4,11 @@ import { PatientService } from '../services/patient.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-information-tab',
-  templateUrl: './information-tab.component.html',
-  styleUrls: ['./information-tab.component.css']
+  selector: 'app-patient-forms-tab',
+  templateUrl: './patient-forms-tab.component.html',
+  styleUrls: ['./patient-forms-tab.component.css']
 })
-export class InformationTabComponent implements OnInit {
+export class PatientFormsTabComponent implements OnInit {
 
   patient = new Patient();
 
